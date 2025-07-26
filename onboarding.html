@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TailorApply - Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .onboarding-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 90%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .steps-container {
+            padding: 40px;
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .step-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .step-description {
+            font-size: 16px;
+            color: #718096;
+            line-height: 1.6;
+        }
+
+        .upload-area {
+            border: 2px dashed #cbd5e0;
+            border-radius: 12px;
+            padding: 60px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .upload-area:hover {
+            border-color: #667eea;
+            background-color: #f7fafc;
+        }
+
+        .upload-area.dragover {
+            border-color: #667eea;
+            background-color: #edf2f7;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .upload-text {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+
+        .upload-subtext {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #edf2f7;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .processing-status {
+            text-align: center;
+            padding: 20px;
+            background-color: #f7fafc;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .processing-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .processing-text {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+
+        .processing-subtext {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .profile-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-textarea {
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .skills-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            min-height: 80px;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: text;
+        }
+
+        .skills-input:focus-within {
+            border-color: #667eea;
+        }
+
+        .skill-tag {
+            background-color: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-remove {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .skill-input {
+            border: none;
+            outline: none;
+            padding: 4px;
+            font-size: 14px;
+            min-width: 100px;
+            flex: 1;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            background-color: #cbd5e0;
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .extracted-data {
+            background-color: #f7fafc;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .data-section {
+            margin-bottom: 25px;
+        }
+
+        .data-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .data-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .data-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .data-item {
+            background-color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #4a5568;
+            border: 1px solid #e2e8f0;
+        }
+
+        .loading-spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid #e2e8f0;
+            border-radius: 50%;
+            border-top-color: #667eea;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .completion-check {
+            font-size: 64px;
+            color: #48bb78;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="onboarding-container">
+        <div class="header">
+            <h1>Welcome to TailorApply</h1>
+            <p>Let's set up your profile and master resume to get started with AI-powered job applications</p>
+        </div>
+
+        <div class="steps-container">
+            <!-- Step 1: Upload Resume -->
+            <div class="step active" id="step-1">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <h2 class="step-title">Upload Your Master Resume</h2>
+                    <p class="step-description">Upload your most comprehensive resume. We'll parse it to extract your experience, skills, and education.</p>
+                </div>
+
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-icon">📄</div>
+                    <div class="upload-text">Drop your resume here or click to browse</div>
+                    <div class="upload-subtext">Supports PDF, DOC, and DOCX files (max 10MB)</div>
+                </div>
+
+                <input type="file" id="file-input" class="file-input" accept=".pdf,.doc,.docx">
+
+                <div class="progress-bar" id="progress-bar" style="display: none;">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+
+                <div class="processing-status" id="processing-status" style="display: none;">
+                    <div class="processing-icon">
+                        <div class="loading-spinner"></div>
+                    </div>
+                    <div class="processing-text">Parsing your resume...</div>
+                    <div class="processing-subtext">Our AI is extracting your experience, skills, and education</div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="skipStep()">Skip This Step</button>
+                    <button class="btn btn-primary" id="continue-btn-1" onclick="nextStep()" disabled>Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Review Extracted Data -->
+            <div class="step" id="step-2">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <h2 class="step-title">Review Extracted Information</h2>
+                    <p class="step-description">Please review and edit the information we extracted from your resume.</p>
+                </div>
+
+                <div class="extracted-data" id="extracted-data">
+                    <!-- This will be populated with extracted data -->
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Looks Good</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Personal Information -->
+            <div class="step" id="step-3">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <h2 class="step-title">Complete Your Profile</h2>
+                    <p class="step-description">Fill in any missing information to ensure your applications are complete.</p>
+                </div>
+
+                <form class="profile-form" id="profile-form">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" id="full-name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" id="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-input" id="phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Location</label>
+                        <input type="text" class="form-input" id="location" placeholder="City, State/Country">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">LinkedIn Profile (optional)</label>
+                        <input type="url" class="form-input" id="linkedin" placeholder="https://linkedin.com/in/yourprofile">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Professional Summary</label>
+                        <textarea class="form-textarea" id="summary" placeholder="Brief description of your professional background and goals"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Key Skills</label>
+                        <div class="skills-input" id="skills-input">
+                            <input type="text" class="skill-input" placeholder="Type a skill and press Enter">
+                        </div>
+                    </div>
+                </form>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+                    <button class="btn btn-primary" onclick="completeOnboarding()">Complete Setup</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Completion -->
+            <div class="step" id="step-4">
+                <div class="step-header">
+                    <div class="step-number completion-check">✅</div>
+                    <h2 class="step-title">All Set!</h2>
+                    <p class="step-description">Your TailorApply profile is ready. You can now generate optimized resumes and cover letters for any job posting.</p>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-secondary" onclick="openDashboard()">Open Dashboard</button>
+                    <button class="btn btn-primary" onclick="startApplying()">Start Applying to Jobs</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="onboarding.js"></script>
+</body>
+</html>

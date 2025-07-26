@@ -1,0 +1,83 @@
+{
+  "name": "tailorapply",
+  "version": "1.0.0",
+  "description": "AI-powered Chrome extension for generating ATS-optimized resumes and personalized cover letters",
+  "main": "background.js",
+  "scripts": {
+    "build": "echo 'Building extension...' && npm run validate",
+    "validate": "echo 'Validating manifest...' && node -e \"console.log('Manifest valid:', JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')))\"",
+    "dev": "echo 'Development mode: Load extension in Chrome Developer Mode'",
+    "test": "echo 'Running tests...' && echo 'No tests configured yet'",
+    "package": "zip -r tailorapply-extension.zip . -x '*.git*' 'node_modules/*' '*.DS_Store' '*.md' 'package*.json'",
+    "lint": "echo 'Linting JavaScript files...'",
+    "clean": "rm -f tailorapply-extension.zip"
+  },
+  "keywords": [
+    "chrome-extension",
+    "resume",
+    "cover-letter",
+    "ats",
+    "ai",
+    "job-application",
+    "openai",
+    "career",
+    "linkedin",
+    "job-search"
+  ],
+  "author": "TailorApply Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tailorapply/chrome-extension.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tailorapply/chrome-extension/issues"
+  },
+  "homepage": "https://tailorapply.com",
+  "devDependencies": {
+    "web-ext": "^7.8.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "browserslist": [
+    "Chrome >= 88"
+  ],
+  "manifest": {
+    "version": 3,
+    "permissions": [
+      "activeTab",
+      "storage",
+      "scripting",
+      "tabs",
+      "background"
+    ],
+    "host_permissions": [
+      "https://www.linkedin.com/*",
+      "https://www.naukri.com/*",
+      "https://wellfound.com/*",
+      "https://www.ycombinator.com/*",
+      "https://www.glassdoor.com/*"
+    ]
+  },
+  "extension": {
+    "name": "TailorApply",
+    "shortName": "TailorApply",
+    "description": "Instantly generate ATS-optimized resumes and personalized cover letters on any job site",
+    "category": "productivity",
+    "targetSites": [
+      "linkedin.com",
+      "naukri.com",
+      "wellfound.com",
+      "ycombinator.com",
+      "glassdoor.com"
+    ],
+    "features": [
+      "Job Description Parsing",
+      "Resume Optimization",
+      "Cover Letter Generation",
+      "ATS Scoring",
+      "Multi-site Support"
+    ]
+  }
+}
