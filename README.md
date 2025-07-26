@@ -261,23 +261,3 @@ tailorapply/
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- OpenAI for GPT-4 API
-- Chrome Extensions API documentation
-- Job board sites for inspiration
-- Beta testers and early adopters
-
-## 📞 Contact
-
-- **Website**: [tailorapply.com](https://tailorapply.com)
-- **Email**: contact@tailorapply.com
-- **Twitter**: [@TailorApply](https://twitter.com/tailorapply)
-- **GitHub**: [github.com/tailorapply](https://github.com/tailorapply)
-
----
-
-**Made with ❤️ for job seekers everywhere**
-
-*TailorApply - Your AI-powered job application assistant*
